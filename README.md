@@ -1,0 +1,2 @@
+# dotfiles [![Build](https://github.com/anubhavkini/dotfiles/actions/workflows/build.yaml/badge.svg?branch=release)](https://github.com/anubhavkini/dotfiles/actions/workflows/build.yaml)
+Nix configuation files for [NixOS](https://nixos.org/) and [Home Manager](https://nix-community.github.io/home-manager/) using a [Flake](https://nixos.wiki/wiki/Flakes).
