@@ -1,0 +1,61 @@
+# GitHub action to build all configurations.
+name: Build
+
+# Run on push to master, develop or release branches and manual dispatch.
+on:
+  push:
+    branches:
+      [ release ]
+
+  workflow_dispatch:
+
+jobs:
+
+  # Build bracer configuration and upload to cachix.
+  bracer:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the branch.
+      - uses: actions/checkout@v2
+
+      # Install nix.
+      - uses: cachix/install-nix-action@v14
+        with:
+          install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install
+          install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # Use cachix.
+      - uses: cachix/cachix-action@v10
+        with:
+          name: anubhavkini-config
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      # Build bracer configuration.
+      - run: nix build .#nixosConfigurations.bracer.config.system.build.toplevel
+
+  # Build anubhav@bracer configuration and upload to cachix.
+  anubhav-bracer:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the branch.
+      - uses: actions/checkout@v2
+
+      # Install nix.
+      - uses: cachix/install-nix-action@v14
+        with:
+          install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install
+          install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # Use cachix.
+      - uses: cachix/cachix-action@v10
+        with:
+          name: anubhavkini-config
+          extraPullNames: nix-community
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      # Build anubhav@bracer configuration.
+      - run: nix build .#homeConfigurations.anubhav@bracer.activationPackage

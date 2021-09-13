@@ -1,0 +1,48 @@
+# GitHub action to update flake.lock file.
+name: Update
+
+# Run on weekdays at 00:00 and manual dispatch.
+on:
+  schedule:
+    - cron: '0 0 * * 1,2,3,4,5'
+
+  workflow_dispatch:
+
+jobs:
+
+  # Update the flake.lock file.
+  updateFlake:
+    runs-on: ubuntu-latest
+    steps:
+      # Get todays date.
+      - name: Get date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
+      # Install nix.
+      - uses: cachix/install-nix-action@v14
+        with:
+          install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install
+          install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # Checkout the release branch.
+      - uses: actions/checkout@v2
+        with:
+          ref: release
+          token: ${{ secrets.MACHINE_USER_PAT }}
+
+      # Update flake.lock file.
+      - name: Update Flake
+        run: nix flake update
+
+      # Tag and commit changes.
+      - name: Commit changes
+        run: |
+          git config --global user.name 'not anubhav'
+          git config --global user.email 'notanubhav@pm.me'
+          git commit -am v${{ steps.date.outputs.date }}
+          git tag v${{ steps.date.outputs.date }}
+          git push
+          git push --tags
