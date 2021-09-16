@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../modules/backup
     ../modules/browser
     ../modules/editor
     ../modules/file-manager
