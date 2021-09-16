@@ -1,11 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./fonts
-    ./gpg
-    ./home-manager
-    ./syncthing
-    ./transmission
-  ];
+  imports = [ ./home-manager ];
 }
