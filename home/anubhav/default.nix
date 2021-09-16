@@ -5,13 +5,16 @@
     ../modules/browser
     ../modules/editor
     ../modules/file-manager
+    ../modules/font
     ../modules/media
     ../modules/misc
     ../modules/office
     ../modules/pager
-    ../modules/password-manager
+    ../modules/security
     ../modules/shell
+    ../modules/sync
     ../modules/terminal
+    ../modules/torrent
     ../modules/vcs
   ];
 
