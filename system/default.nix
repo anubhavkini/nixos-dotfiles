@@ -2,9 +2,9 @@
 
 {
   imports = [
+    ./modules/communication
     ./modules/boot
     ./modules/kernel
-    ./modules/network
     ./modules/nix
     ./modules/security
     ./modules/systemd

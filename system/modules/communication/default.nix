@@ -3,8 +3,7 @@
 {
   imports = [
     ./bluetooth
-    ./dnsmasq
-    ./networkmanager
-    ./stubby
+    ./dns
+    ./network
   ];
 }
