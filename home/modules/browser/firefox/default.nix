@@ -15,7 +15,13 @@
     ];
 
     profiles.default = {
-      settings = {};
+      settings = {
+        # Hardware acceleration.
+        "media.ffmpeg.vaapi.enabled" = true;
+        "media.ffvpx.enabled" = false;
+        "media.navigator.mediadatadecoder_vpx_enabled" = true;
+        "media.rdd-vpx.enabled" = false;
+      };
     };
   };
 }
