@@ -27,4 +27,7 @@
   systemd.services."systemd-networkd-wait-online".serviceConfig.ExecStart = [
     "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online --any"
   ];
+
+  # resolved is terrible.
+  services.resolved.enable = false;
 }
