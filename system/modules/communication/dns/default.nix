@@ -1,5 +1,8 @@
 { ... }:
 
 {
-  imports = [ ./resolved ];
+  imports = [
+    ./stubby
+    ./dnsmasq
+  ];
 }
