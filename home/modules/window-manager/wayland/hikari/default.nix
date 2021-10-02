@@ -23,6 +23,7 @@
     xwayland
 
     # desktop portal
+    xdg-desktop-portal
     xdg-desktop-portal-wlr
   ];
 
@@ -34,7 +35,7 @@
     "hikari/session" = {
       executable = true;
       text = ''
-        systemctl --user import-environment; systemctl --user start hikari-session.target
+        dbus-update-activation-environment --all --systemd; systemctl --user start hikari-session.target
       '';
     };
   };
