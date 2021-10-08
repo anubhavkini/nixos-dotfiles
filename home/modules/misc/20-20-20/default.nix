@@ -4,6 +4,10 @@
   systemd.user.timers."20-20-20" = {
     Unit.Description = "Prevent eye strain";
     Timer.OnUnitInactiveSec = 1200;
+    Unit.PartOf = [ "graphical-session.target" ];
+    Timer.OnActiveSec = 1200;
+    Timer.OnUnitInactiveSec = 1200;
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   systemd.user.services."20-20-20" = {
